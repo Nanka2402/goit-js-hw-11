@@ -7,12 +7,6 @@
     <title>Homework 11</title>
 
     <link rel="stylesheet" href="./css/styles.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css"
-      integrity="sha256-r7Neol40GubQBzMKAJovEaXbl9FClnADCrIMPljlx3E="
-      crossorigin="anonymous"
-    />
   </head>
   <body>
     <p><a href="index.html">Back</a></p>
@@ -20,19 +14,14 @@
       <form id="searchForm">
         <label for="searchInput"></label>
         <input type="text" id="searchInput" placeholder="Search images..." />
-        <button type="submit">Start</button>
+        <button type="submit" class="btn">Start</button>
       </form>
       <div id="gallery" class="gallery"></div>
 
-      <div class="loader"></div>
+      <div class="loader-container">
+        <div class="loader"></div>
+      </div>
     </div>
-    <script
-      async
-      src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"
-      integrity="sha256-nMn34BfOxpKD0GwV5nZMwdS4e8SI8Ekz+G7dLeGE4XY="
-      crossorigin="anonymous"
-    ></script>
-
     <script src="./main.js" type="module"></script>
   </body>
 </html>
