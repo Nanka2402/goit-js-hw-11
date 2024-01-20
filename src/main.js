@@ -7,6 +7,9 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 document.addEventListener('DOMContentLoaded', function () {
+  const loaderContainer = document.getElementById('loaderContainer');
+  hideLoader(loaderContainer);
+
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
   const gallery = document.getElementById('gallery');
@@ -56,14 +59,12 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function showLoader() {
-    const loaderContainer = document.getElementById('loaderContainer');
     if (loaderContainer) {
       loaderContainer.style.display = 'block';
     }
   }
 
   function hideLoader() {
-    const loaderContainer = document.getElementById('loaderContainer');
     if (loaderContainer) {
       loaderContainer.style.display = 'none';
     }
@@ -78,19 +79,37 @@ document.addEventListener('DOMContentLoaded', function () {
         message:
           'Sorry, there are no images matching your search query. Please try again!',
       });
+      hideLoader();
       return;
     }
 
     images.forEach(image => {
       const card = document.createElement('div');
-      card.className = 'card';
+      card.className = 'gallery-item';
 
       // Обгортаємо картку зображення в посилання для SimpleLightbox
       card.innerHTML = `
       <a href="${image.largeImageURL}" data-lightbox="gallery" data-title="Likes: ${image.likes}, Views: ${image.views}, Comments: ${image.comments}, Downloads: ${image.downloads}">
           <img src="${image.webformatURL}" alt="${image.tags}" data-src="${image.largeImageURL}" data-caption="Likes: ${image.likes}, Views: ${image.views}, Comments: ${image.comments}, Downloads: ${image.downloads}">
         </a>
-       
+        <div class="image-stats">
+      <div class="stat-item">
+        <p class="stat-label">Likes:</p>
+        <p class="stat-value">${image.likes}</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">Views:</p>
+        <p class="stat-value">${image.views}</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">Comments:</p>
+        <p class="stat-value">${image.comments}</p>
+      </div>
+      <div class="stat-item">
+        <p class="stat-label">Downloads:</p>
+        <p class="stat-value">${image.downloads}</p>
+      </div>
+    </div>
       `;
 
       gallery.appendChild(card);
