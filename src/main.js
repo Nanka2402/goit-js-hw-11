@@ -7,7 +7,7 @@ import SimpleLightbox from 'simplelightbox';
 // Додатковий імпорт стилів
 import 'simplelightbox/dist/simple-lightbox.min.css';
 document.addEventListener('DOMContentLoaded', function () {
-  const loaderContainer = document.getElementById('loaderContainer');
+  const loaderContainer = document.getElementById('loader-container');
   hideLoader(loaderContainer);
 
   const searchForm = document.getElementById('searchForm');
