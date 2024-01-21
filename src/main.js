@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const searchForm = document.getElementById('searchForm');
   const searchInput = document.getElementById('searchInput');
   const gallery = document.getElementById('gallery');
-  const startBtn = document.querySelector('.btn');
+
   const apiKey = '41901564-aceebb7c9fdd08ac794ac72d8';
 
   searchForm.addEventListener('submit', function (e) {
     e.preventDefault();
 
     // Відображення індикатора завантаження
-    showLoader();
+    showLoader(loaderContainer);
 
     const searchTerm = searchInput.value.trim();
     if (searchTerm === '') {
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title: 'Error',
         message: 'Please enter a search term',
       });
-      hideLoader();
+      hideLoader(loaderContainer);
       return;
     }
 
@@ -45,7 +45,14 @@ document.addEventListener('DOMContentLoaded', function () {
     fetch(`${apiUrl}?${new URLSearchParams(requestData)}`)
       .then(response => response.json())
       .then(data => {
-        displayImages(data.hits);
+        if (data.hits.length === 0) {
+          iziToast.error({
+            title: 'Error',
+            message: 'No images found for the provided search term',
+          });
+        } else {
+          displayImages(data.hits);
+        }
       })
       .catch(() => {
         iziToast.error({
@@ -54,17 +61,17 @@ document.addEventListener('DOMContentLoaded', function () {
         });
       })
       .finally(() => {
-        hideLoader();
+        hideLoader(loaderContainer);
       });
   });
 
-  function showLoader() {
+  function showLoader(loaderContainer) {
     if (loaderContainer) {
       loaderContainer.style.display = 'block';
     }
   }
 
-  function hideLoader() {
+  function hideLoader(loaderContainer) {
     if (loaderContainer) {
       loaderContainer.style.display = 'none';
     }
